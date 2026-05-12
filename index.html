@@ -1,1 +1,2426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern School - Education Excellence</title>
+    <style>
+        /* ============================================
+           GLOBAL STYLES & CSS VARIABLES
+           ============================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            /* Color Palette */
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --text-dark: #1f2937;
+            --text-light: #f3f4f6;
+            --bg-light: #f9fafb;
+            --bg-dark: #111827;
+            --border-color: #e5e7eb;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #06b6d4 100%);
+            --gradient-dark: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            
+            /* Transitions */
+            --transition-fast: all 0.2s ease;
+            --transition-base: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        /* ============================================
+           CONTAINER & LAYOUT UTILITIES
+           ============================================ */
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .section {
+            padding: var(--spacing-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            position: relative;
+            animation: slideUp 0.8s ease;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #6b7280;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-accent);
+            margin: 1rem auto 0;
+            display: block;
+            border-radius: 2px;
+        }
+
+        /* ============================================
+           HEADER & NAVIGATION
+           ============================================ */
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            transition: var(--transition-base);
+        }
+
+        header.dark-mode {
+            background: rgba(17, 24, 39, 0.95);
+        }
+
+        body.scrolled header {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        /* Navigation Links */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        header.dark-mode nav a {
+            color: var(--text-light);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* Mode Toggle */
+        .mode-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .mode-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: var(--transition-fast);
+        }
+
+        header.dark-mode .hamburger span {
+            background: var(--text-light);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                transition: left 0.3s ease;
+                z-index: 999;
+            }
+
+            header.dark-mode nav {
+                background: rgba(17, 24, 39, 0.98);
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                padding: var(--spacing-xl);
+            }
+
+            nav a {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Animated Background Elements */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.3) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -50px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: slideUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.2;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-2xl);
+            opacity: 0.95;
+            animation: fadeIn 1.2s ease;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 1.4s ease;
+        }
+
+        .welcome-btn {
+            margin-top: var(--spacing-lg);
+            animation: slideUp 1.6s ease;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                gap: var(--spacing-sm);
+            }
+        }
+
+        /* ============================================
+           BUTTONS & INTERACTIVE ELEMENTS
+           ============================================ */
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #fff 0%, #f0f9ff 100%);
+            color: var(--primary-color);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-tertiary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-tertiary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ============================================
+           ABOUT SECTION
+           ============================================ */
+        
+        .about {
+            background: var(--bg-light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-color);
+        }
+
+        .about-content p {
+            margin-bottom: var(--spacing-md);
+            color: #6b7280;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.8s ease;
+        }
+
+        /* Mission & Vision Cards */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .value-card {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .value-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0.05;
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+
+        .value-card:hover::before {
+            left: 0;
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary-color);
+        }
+
+        .value-card p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+        }
+
+        /* ============================================
+           COURSES SECTION
+           ============================================ */
+        
+        .courses {
+            background: var(--bg-light);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            transform-origin: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark-mode .course-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-image::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            transition: var(--transition-base);
+            opacity: 0;
+        }
+
+        .course-card:hover .course-image::after {
+            opacity: 1;
+        }
+
+        .course-content {
+            padding: var(--spacing-lg);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary-color);
+        }
+
+        .course-content p {
+            color: #6b7280;
+            flex-grow: 1;
+            margin-bottom: var(--spacing-md);
+            font-size: 0.95rem;
+        }
+
+        .course-content .btn {
+            align-self: flex-start;
+        }
+
+        @media (max-width: 768px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           GALLERY SECTION
+           ============================================ */
+        
+        .gallery {
+            background: var(--bg-light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            aspect-ratio: 1;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            transition: var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            transition: var(--transition-base);
+            opacity: 0;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        /* Lightbox Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* ============================================
+           TESTIMONIALS SECTION
+           ============================================ */
+        
+        .testimonials {
+            background: var(--gradient-dark);
+            color: white;
+        }
+
+        .testimonials .section-title h2,
+        .testimonials .section-title p {
+            color: white;
+        }
+
+        .testimonials .section-title p {
+            color: #d1d5db;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-xl);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: var(--transition-base);
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: var(--spacing-md);
+            font-size: 1.2rem;
+        }
+
+        .testimonial-text {
+            margin-bottom: var(--spacing-md);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            margin-bottom: 2px;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: #d1d5db;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           FAQ ACCORDION
+           ============================================ */
+        
+        .faq {
+            background: var(--bg-light);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: var(--spacing-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+        }
+
+        body.dark-mode .faq-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .faq-question {
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: var(--transition-fast);
+        }
+
+        .faq-question:hover {
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .faq-question:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .faq-question h3 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            padding: 0 var(--spacing-lg) var(--spacing-lg);
+            color: #6b7280;
+            line-height: 1.8;
+        }
+
+        /* ============================================
+           CONTACT SECTION
+           ============================================ */
+        
+        .contact {
+            background: var(--bg-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: start;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-2xl);
+        }
+
+        .contact-item {
+            display: flex;
+            gap: var(--spacing-lg);
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-xs);
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .contact-details h3 {
+            color: var(--text-light);
+        }
+
+        .contact-details p {
+            color: #6b7280;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        body.dark-mode .form-group label {
+            color: var(--text-light);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+            background: white;
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-error {
+            color: var(--error);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .form-group.error .form-error {
+            display: block;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: var(--error);
+        }
+
+        .form-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           NEWSLETTER SECTION
+           ============================================ */
+        
+        .newsletter {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-2xl) 0;
+            margin: var(--spacing-2xl) 0;
+            border-radius: 20px;
+        }
+
+        .newsletter h2 {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-lg);
+            opacity: 0.95;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: var(--spacing-sm);
+            max-width: 500px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                min-width: auto;
+            }
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: var(--spacing-2xl) 0 var(--spacing-lg);
+            border-top: 2px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .footer-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-md);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--spacing-lg);
+            text-align: center;
+            color: #9ca3af;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .scroll-to-top {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-3px);
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px transparent;
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
+            }
+        }
+
+        /* Scroll Animation Classes */
+        .fade-in {
+            animation: slideUp 0.8s ease backwards;
+        }
+
+        .fade-in.delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .fade-in.delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in.delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        /* ============================================
+           UTILITIES
+           ============================================ */
+        
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-0 {
+            margin-top: 0;
+        }
+
+        .mt-1 {
+            margin-top: var(--spacing-sm);
+        }
+
+        .mt-2 {
+            margin-top: var(--spacing-md);
+        }
+
+        .mt-4 {
+            margin-top: var(--spacing-2xl);
+        }
+
+        .mb-0 {
+            margin-bottom: 0;
+        }
+
+        .mb-1 {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .mb-2 {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .mb-4 {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        body.dark-mode::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         HEADER & NAVIGATION
+         ============================================ -->
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#home" class="logo">
+                    <div class="logo-icon">📚</div>
+                    <span>Modern School</span>
+                </a>
+
+                <nav id="nav">
+                    <ul>
+                        <li><a href="#home" class="nav-link">Home</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#courses" class="nav-link">Courses</a></li>
+                        <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                        <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div style="display: flex; gap: var(--spacing-md); align-items: center;">
+                    <button class="mode-toggle" id="modeToggle" title="Toggle dark mode">🌙</button>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Modern School</h1>
+            <p class="tagline">Empowering Students, Shaping the Future</p>
+            <div class="hero-buttons">
+                <a href="#courses" class="btn btn-primary">Explore Courses</a>
+                <a href="#contact" class="btn btn-secondary">Contact Us</a>
+            </div>
+            <button class="btn btn-accent welcome-btn" id="welcomeBtn">Click for a Surprise! ✨</button>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 9l7 7 7-7"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ABOUT SECTION
+         ============================================ -->
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Our School</h2>
+                <p>Dedicated to Excellence in Education</p>
+            </div>
+
+            <div class="about-grid fade-in">
+                <div class="about-content">
+                    <h3>Our Journey</h3>
+                    <p>
+                        Founded in 2000, Modern School has been at the forefront of educational excellence, 
+                        serving thousands of students and families in our community.
+                    </p>
+                    <p>
+                        We believe in fostering a learning environment that combines academic rigor with 
+                        personal development, preparing students not just for exams, but for life.
+                    </p>
+                    <p>
+                        Our experienced faculty and state-of-the-art facilities ensure every student receives 
+                        the best education possible.
+                    </p>
+                </div>
+                <div class="about-image">🎓</div>
+            </div>
+
+            <!-- Mission & Vision Cards -->
+            <div class="values-grid">
+                <div class="value-card fade-in delay-1">
+                    <div class="value-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>
+                        To provide comprehensive, quality education that develops critical thinking, 
+                        creativity, and confidence in every student.
+                    </p>
+                </div>
+                <div class="value-card fade-in delay-2">
+                    <div class="value-icon">🌟</div>
+                    <h3>Our Vision</h3>
+                    <p>
+                        To be a leading educational institution recognized for academic excellence 
+                        and holistic student development.
+                    </p>
+                </div>
+                <div class="value-card fade-in delay-3">
+                    <div class="value-icon">💡</div>
+                    <h3>Our Values</h3>
+                    <p>
+                        Excellence, Integrity, Innovation, and Inclusivity guide every decision 
+                        we make in service of our students.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         COURSES SECTION
+         ============================================ -->
+    <section id="courses" class="section courses">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Courses</h2>
+                <p>Comprehensive Programs for All Students</p>
+            </div>
+
+            <div class="courses-grid">
+                <!-- Science Course -->
+                <div class="course-card fade-in">
+                    <div class="course-image">🧪</div>
+                    <div class="course-content">
+                        <h3>Science</h3>
+                        <p>
+                            Explore the wonders of the natural world through hands-on experiments 
+                            and interactive learning experiences.
+                        </p>
+                        <button class="btn btn-tertiary" onclick="alert('Learn more about Science: Physics, Chemistry, Biology')">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- Mathematics Course -->
+                <div class="course-card fade-in delay-1">
+                    <div class="course-image">🔢</div>
+                    <div class="course-content">
+                        <h3>Mathematics</h3>
+                        <p>
+                            Build strong problem-solving skills through comprehensive coverage of 
+                            algebra, geometry, calculus, and more.
+                        </p>
+                        <button class="btn btn-tertiary" onclick="alert('Learn more about Mathematics: Algebra, Geometry, Calculus')">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- Computer Science Course -->
+                <div class="course-card fade-in delay-2">
+                    <div class="course-image">💻</div>
+                    <div class="course-content">
+                        <h3>Computer Science</h3>
+                        <p>
+                            Master programming, web development, and cutting-edge technology 
+                            in our modern computer labs.
+                        </p>
+                        <button class="btn btn-tertiary" onclick="alert('Learn more about CS: Programming, Web Dev, AI')">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- English Course -->
+                <div class="course-card fade-in delay-3">
+                    <div class="course-image">📖</div>
+                    <div class="course-content">
+                        <h3>English</h3>
+                        <p>
+                            Develop communication skills, literary analysis, and creative writing 
+                            through engaging discussions and projects.
+                        </p>
+                        <button class="btn btn-tertiary" onclick="alert('Learn more about English: Literature, Writing, Communication')">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- Arts Course -->
+                <div class="course-card fade-in delay-1">
+                    <div class="course-image">🎨</div>
+                    <div class="course-content">
+                        <h3>Arts</h3>
+                        <p>
+                            Express yourself through painting, sculpture, photography, and digital 
+                            art in our creative studio.
+                        </p>
+                        <button class="btn btn-tertiary" onclick="alert('Learn more about Arts: Painting, Sculpture, Photography')">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- Commerce Course -->
+                <div class="course-card fade-in delay-2">
+                    <div class="course-image">📊</div>
+                    <div class="course-content">
+                        <h3>Commerce</h3>
+                        <p>
+                            Learn business fundamentals, economics, accounting, and entrepreneurship 
+                            to succeed in the modern economy.
+                        </p>
+                        <button class="btn btn-tertiary" onclick="alert('Learn more about Commerce: Economics, Accounting, Business')">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         GALLERY SECTION
+         ============================================ -->
+    <section id="gallery" class="section gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Gallery</h2>
+                <p>Moments from Our School Community</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item fade-in" onclick="openModal(this)">📚 Library</div>
+                <div class="gallery-item fade-in delay-1" onclick="openModal(this)">🏫 Campus</div>
+                <div class="gallery-item fade-in delay-2" onclick="openModal(this)">🎭 Events</div>
+                <div class="gallery-item fade-in delay-3" onclick="openModal(this)">⚽ Sports</div>
+                <div class="gallery-item fade-in delay-1" onclick="openModal(this)">🎵 Music</div>
+                <div class="gallery-item fade-in delay-2" onclick="openModal(this)">🏆 Awards</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="modal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-image" id="modalImage" style="font-size: 6rem; width: 100%; text-align: center; padding: 40px; background: var(--gradient-primary); border-radius: 10px;"></div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         TESTIMONIALS SECTION
+         ============================================ -->
+    <section id="testimonials" class="section testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Community Says</h2>
+                <p>Real Stories from Students and Parents</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card fade-in">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "Modern School transformed my learning experience. The teachers are incredibly 
+                        supportive and the curriculum is comprehensive."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SA</div>
+                        <div class="author-info">
+                            <h4>Sarah Ahmed</h4>
+                            <p>Grade 12 Student</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card fade-in delay-1">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "We're thrilled with our child's progress. The school's holistic approach to 
+                        education is exactly what we were looking for."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RM</div>
+                        <div class="author-info">
+                            <h4>Rajesh Malhotra</h4>
+                            <p>Parent</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card fade-in delay-2">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "The computer science program here is outstanding. I feel well-prepared for my 
+                        future in technology."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AK</div>
+                        <div class="author-info">
+                            <h4>Alia Khan</h4>
+                            <p>Grade 11 Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FAQ SECTION
+         ============================================ -->
+    <section id="faq" class="section faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Get Answers to Common Questions</p>
+            </div>
+
+            <div class="faq-container">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What are the admission requirements?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            Admission is based on merit, entrance examination, and an interview. 
+                            We look for motivated students who are ready to engage in our comprehensive curriculum. 
+                            Please visit our admissions office for detailed information about the process.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item fade-in delay-1">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What is your school timings?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            Our school operates from 8:00 AM to 3:30 PM on weekdays. 
+                            We also offer extended programs for sports and cultural activities until 5:00 PM. 
+                            Admission is on a rolling basis throughout the year.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item fade-in delay-2">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Do you provide transportation?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            Yes, we provide safe and reliable school bus services covering major areas of the city. 
+                            Transportation fees are separate and can be customized based on your route requirements.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item fade-in delay-3">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What extracurricular activities are available?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            We offer a wide range of extracurricular activities including sports, 
+                            music, dance, art, debate, robotics, and more. 
+                            Students are encouraged to participate and develop their talents beyond academics.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item fade-in delay-1">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What is your scholarship policy?</h3>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            We believe in providing quality education to all deserving students. 
+                            We offer merit-based and need-based scholarships. 
+                            Interested students can apply during the admission process or contact our scholarship committee.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         NEWSLETTER SECTION
+         ============================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="newsletter">
+                <h2>Subscribe to Our Newsletter</h2>
+                <p>Get the latest updates about our school and educational tips directly in your inbox!</p>
+                <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <input 
+                        type="email" 
+                        placeholder="Enter your email address" 
+                        id="newsletterEmail"
+                        required
+                    >
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT SECTION
+         ============================================ -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>We'd Love to Hear From You</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h3>Address</h3>
+                            <p>123 Education Avenue<br>Knowledge City, KC 12345<br>Your Country</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item fade-in delay-1">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h3>Phone</h3>
+                            <p>(+1) 555-0123<br>(+1) 555-0124</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item fade-in delay-2">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>info@modernschool.edu<br>admissions@modernschool.edu</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item fade-in delay-3">
+                        <div class="contact-icon">🕐</div>
+                        <div class="contact-details">
+                            <h3>Hours</h3>
+                            <p>Monday - Friday: 9AM - 5PM<br>Saturday: 10AM - 2PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <form class="contact-form" onsubmit="validateForm(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Your Full Name" required>
+                        <span class="form-error">Please enter your name</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                        <span class="form-error">Please enter a valid email</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+1 (555) 123-4567" required>
+                        <span class="form-error">Please enter a valid phone number (at least 10 digits)</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Your message here..." required></textarea>
+                        <span class="form-error">Please enter your message (at least 10 characters)</span>
+                    </div>
+
+                    <div class="form-success" id="formSuccess">
+                        ✓ Thank you! Your message has been sent successfully. We'll get back to you soon!
+                    </div>
+
+                    <button type="submit" class="btn btn-accent">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- About Footer -->
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p style="color: #d1d5db; margin-bottom: var(--spacing-md);">
+                        Modern School is committed to providing world-class education 
+                        and developing leaders for tomorrow.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Facebook">f</a>
+                        <a href="#" class="social-link" title="Twitter">𝕏</a>
+                        <a href="#" class="social-link" title="Instagram">📷</a>
+                        <a href="#" class="social-link" title="LinkedIn">in</a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Academics -->
+                <div class="footer-section">
+                    <h3>Academics</h3>
+                    <ul>
+                        <li><a href="#">Science</a></li>
+                        <li><a href="#">Mathematics</a></li>
+                        <li><a href="#">Computer Science</a></li>
+                        <li><a href="#">English</a></li>
+                        <li><a href="#">Arts & Commerce</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Footer -->
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>📍 123 Education Avenue</li>
+                        <li>📞 (+1) 555-0123</li>
+                        <li>✉️ info@modernschool.edu</li>
+                        <li>🕐 Mon-Fri: 9AM-5PM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2026 Modern School. All Rights Reserved.</p>
+                <div class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()" title="Back to top">↑</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // ==========================================
+        // DOM ELEMENTS
+        // ==========================================
+        
+        const header = document.getElementById('header');
+        const nav = document.getElementById('nav');
+        const hamburger = document.getElementById('hamburger');
+        const modeToggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const navLinks = document.querySelectorAll('.nav-link');
+        const scrollToTop = document.getElementById('scrollToTop');
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+        const welcomeBtn = document.getElementById('welcomeBtn');
+
+        // ==========================================
+        // INITIALIZATION
+        // ==========================================
+        
+        // Initialize animations on page load
+        window.addEventListener('load', () => {
+            animateOnScroll();
+        });
+
+        // ==========================================
+        // DARK MODE TOGGLE
+        // ==========================================
+        
+        /**
+         * Toggle dark mode and save preference to localStorage
+         */
+        modeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            header.classList.toggle('dark-mode');
+            
+            // Update emoji based on mode
+            modeToggle.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            
+            // Save preference
+            localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
+        });
+
+        // Load dark mode preference from localStorage
+        if (localStorage.getItem('darkMode') === 'true') {
+            body.classList.add('dark-mode');
+            header.classList.add('dark-mode');
+            modeToggle.textContent = '☀️';
+        }
+
+        // ==========================================
+        // MOBILE HAMBURGER MENU
+        // ==========================================
+        
+        /**
+         * Toggle mobile navigation menu
+         */
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        /**
+         * Close menu when a link is clicked
+         */
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            }
+        });
+
+        // ==========================================
+        // STICKY HEADER ON SCROLL
+        // ==========================================
+        
+        /**
+         * Add scroll class to header and update active navigation link
+         */
+        window.addEventListener('scroll', () => {
+            // Add scrolled class
+            if (window.scrollY > 50) {
+                body.classList.add('scrolled');
+            } else {
+                body.classList.remove('scrolled');
+            }
+
+            // Update active nav link
+            updateActiveNavLink();
+
+            // Show/hide scroll to top button
+            if (window.scrollY > 300) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+
+            // Trigger scroll animations
+            animateOnScroll();
+        });
+
+        // ==========================================
+        // NAVIGATION HIGHLIGHTING
+        // ==========================================
+        
+        /**
+         * Update the active navigation link based on scroll position
+         */
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section[id]');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    const activeLink = document.querySelector(`a[href="#${section.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        // ==========================================
+        // SCROLL TO TOP BUTTON
+        // ==========================================
+        
+        /**
+         * Smooth scroll to top of page
+         */
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // ==========================================
+        // GALLERY & LIGHTBOX
+        // ==========================================
+        
+        /**
+         * Open lightbox modal with gallery item
+         */
+        function openModal(element) {
+            modal.classList.add('active');
+            modalImage.textContent = element.textContent;
+        }
+
+        /**
+         * Close lightbox modal
+         */
+        function closeModal(event) {
+            if (event && event.target !== modal) return;
+            modal.classList.remove('active');
+        }
+
+        // Close modal when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // ==========================================
+        // FAQ ACCORDION
+        // ==========================================
+        
+        /**
+         * Toggle FAQ item open/close
+         */
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            faqItem.classList.toggle('active');
+        }
+
+        // ==========================================
+        // WELCOME BUTTON
+        // ==========================================
+        
+        /**
+         * Show dynamic welcome message
+         */
+        const welcomeMessages = [
+            "🌟 Welcome to the Future of Education!",
+            "🚀 Ready to Explore Amazing Courses?",
+            "💡 Let's Unlock Your Potential Together!",
+            "🎓 Excellence Starts Here!",
+            "✨ Your Journey to Success Begins Now!"
+        ];
+
+        welcomeBtn.addEventListener('click', () => {
+            const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+            alert(randomMessage);
+        });
+
+        // ==========================================
+        // CONTACT FORM VALIDATION
+        // ==========================================
+        
+        /**
+         * Validate contact form and show success message
+         */
+        function validateForm(e) {
+            e.preventDefault();
+
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const messageInput = document.getElementById('message');
+            const formSuccess = document.getElementById('formSuccess');
+
+            let isValid = true;
+
+            // Reset previous states
+            [nameInput, emailInput, phoneInput, messageInput].forEach(input => {
+                input.parentElement.classList.remove('error');
+            });
+
+            // Validate Name
+            if (nameInput.value.trim().length < 2) {
+                nameInput.parentElement.classList.add('error');
+                isValid = false;
+            }
+
+            // Validate Email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                emailInput.parentElement.classList.add('error');
+                isValid = false;
+            }
+
+            // Validate Phone (at least 10 digits)
+            const phoneRegex = /\d/g;
+            const phoneDigits = phoneInput.value.match(phoneRegex);
+            if (!phoneDigits || phoneDigits.length < 10) {
+                phoneInput.parentElement.classList.add('error');
+                isValid = false;
+            }
+
+            // Validate Message
+            if (messageInput.value.trim().length < 10) {
+                messageInput.parentElement.classList.add('error');
+                isValid = false;
+            }
+
+            // Show success message or prevent submission
+            if (isValid) {
+                formSuccess.classList.add('show');
+                
+                // Reset form
+                setTimeout(() => {
+                    document.querySelector('.contact-form').reset();
+                    formSuccess.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // ==========================================
+        // NEWSLETTER SUBSCRIPTION
+        // ==========================================
+        
+        /**
+         * Handle newsletter subscription
+         */
+        function subscribeNewsletter(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('newsletterEmail').value;
+            
+            // Simple validation
+            if (email && email.includes('@')) {
+                alert('✓ Thank you for subscribing! Check your email for confirmation.');
+                document.getElementById('newsletterEmail').value = '';
+            } else {
+                alert('Please enter a valid email address');
+            }
+        }
+
+        // ==========================================
+        // SCROLL REVEAL ANIMATIONS
+        // ==========================================
+        
+        /**
+         * Animate elements on scroll using Intersection Observer
+         */
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                // Element is in viewport
+                if (elementTop < window.innerHeight && elementBottom > 0) {
+                    // Already animated, skip
+                    if (element.style.animation) return;
+                    
+                    element.style.animation = getAnimationName(element) + ' 0.8s ease forwards';
+                    
+                    // Add delay if element has delay class
+                    const delayClass = element.className.match(/delay-\d/);
+                    if (delayClass) {
+                        const delayValue = parseInt(delayClass[0].match(/\d/)[0]) * 0.1;
+                        element.style.animationDelay = delayValue + 's';
+                    }
+                }
+            });
+        }
+
+        /**
+         * Get animation name based on element
+         */
+        function getAnimationName(element) {
+            return element.classList.contains('delay-1') || 
+                   element.classList.contains('delay-2') || 
+                   element.classList.contains('delay-3') ? 'slideUp' : 'slideUp';
+        }
+
+        // ==========================================
+        // TYPED TEXT EFFECT (OPTIONAL)
+        // ==========================================
+        
+        /**
+         * Simple typing animation for hero section
+         */
+        window.addEventListener('load', () => {
+            const tagline = document.querySelector('.tagline');
+            if (tagline) {
+                const text = tagline.textContent;
+                tagline.textContent = '';
+                let index = 0;
+                
+                function type() {
+                    if (index < text.length) {
+                        tagline.textContent += text.charAt(index);
+                        index++;
+                        setTimeout(type, 50);
+                    }
+                }
+                
+                // Start typing after a short delay
+                setTimeout(type, 500);
+            }
+        });
+
+        // ==========================================
+        // COUNTER ANIMATION
+        // ==========================================
+        
+        /**
+         * Animate number counters (could be added to about section)
+         */
+        function animateCounter(element, target, duration = 2000) {
+            let current = 0;
+            const increment = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        // ==========================================
+        // SMOOTH SCROLL BEHAVIOR
+        // ==========================================
+        
+        /**
+         * Smooth scroll for navigation links (already handled by CSS scroll-behavior)
+         */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Already handled by browser's smooth scrolling
+            });
+        });
+
+        // ==========================================
+        // INITIAL PAGE ANIMATIONS
+        // ==========================================
+        
+        /**
+         * Trigger animations on page load
+         */
+        window.addEventListener('load', () => {
+            document.documentElement.style.scrollBehavior = 'smooth';
+            animateOnScroll();
+        });
+
+        // Log a welcome message in console
+        console.log('%c🎓 Welcome to Modern School Website', 'color: #6366f1; font-size: 20px; font-weight: bold;');
+        console.log('%cThank you for visiting! Check out our courses and get in touch.', 'color: #8b5cf6; font-size: 14px;');
+
+    </script>
+</body>
+</html>
